@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="front.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>InfoFone</title>
+</head>
+
+<body style="background-color:#454347 ;" onload="carregaDispositivos()">
+    <nav class="navbar navbar-expand-lg nav-color">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">InfoFone</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <button class="btn-add" onclick="handleSetModal()" data-bs-toggle="modal"
+                        data-bs-target="#modalForm">
+                        Adicionar
+                    </button>
+
+                </ul>
+                <div class="d-flex" role="modal">
+                    <input id="search-input" class="form-control me-2" type="search" placeholder="Pesquisar"
+                        aria-label="Search">
+                    <button class="btn btn-outline-secondary" onclick="handleModalSearch()" data-bs-toggle="modal"
+                        data-bs-target="#search">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container"></div>
+
+
+
+
+
+    <!-- Modal add/edit -->
+    <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="ModalLabel">Informe os Dados do Dispositivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="fotolink"
+                            placeholder="https://www.exemplo.com/imagem.jpg">
+                        <label for="floatingInput">Link da Imagem</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="fabricante" placeholder="Fabricante">
+                        <label for="floatingInput">Fabricante</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="modelo" placeholder="Modelo">
+                        <label for="floatingInput">Modelo</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="preco" placeholder="Preço">
+                        <label for="floatingInput">Preço</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="processador" placeholder="Processador">
+                        <label for="floatingInput">Processador</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="memoriaInterna" placeholder="Memória Interna">
+                        <label for="floatingInput">Memória Interna</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="memoriaRam" placeholder="Memória Ram">
+                        <label for="floatingInput">Memória Ram</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="handleModal()" class="btn btn-success"
+                        data-bs-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal delete alert -->
+    <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <h5 class="modal-title txt-cent" id="ModalLabel">você deseja excluir o dispositivo ?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="button" onclick="handleModalDelete()" class="btn btn-danger"
+                        data-bs-dismiss="modal">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal user like -->
+    <div class="modal fade" id="user-like" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title txt-cent" id="ModalLabel">Faça Login ou <button class="btn-add-user"
+                            data-bs-toggle="modal" data-bs-target="#user-add">Cadastre-se</button> </h5>
+                    <p class="txt-cent">Informe seu Email:</p>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="fotolink" placeholder="nome@email.com">
+                        <label for="floatingInput">Email</label>
+                    </div>
+                    <h6></h6>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="button" onclick="" class="btn btn-success" data-bs-dismiss="modal">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal add user -->
+    <div class="modal fade" id="user-add" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title txt-cent" id="ModalLabel">Informe Seus Dados </h5>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="seu nome">
+                        <label for="floatingInput">Nome</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="nome@email.com">
+                        <label for="floatingInput">Email</label>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                    <button type="button" onclick="" class="btn btn-success" data-bs-dismiss="modal">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pesquisa -->
+    <div class="modal fade" id="search" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="search-modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
