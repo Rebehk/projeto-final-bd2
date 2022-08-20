@@ -86,15 +86,13 @@ function renderizaNaTela() {
                     <p class="card-text">processador: ${processador}</p>
                     <p class="card-text">memoria interna: ${memoriaInterna}</p>
                     <p class="card-text">memoria ram: ${memoriaRam}</p>
+                    <div class="btn-container">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         Opções
                         </button>
                         <ul class="dropdown-menu">
                         </button></li>
-                        <li><button onclick="handleSetModal('${modelo}', 'user')" class="btn-like" data-bs-toggle="modal" data-bs-target="#user-like">
-                        Like
-                    </button></li>
                         <li><button class="btn-edit" onclick="handleSetModal('${modelo}', 'modalForm')" data-bs-toggle="modal" data-bs-target="#modalForm">
                         Editar
                     </button></li>
@@ -102,6 +100,10 @@ function renderizaNaTela() {
                         Excluir
                     </button></li>
                         </ul>
+                        </div>
+                        <button onclick="handleSetModal('${modelo}', 'user')" class="btn-like" data-bs-toggle="modal" data-bs-target="#user-like">
+                        <img src="./assets/like.png" height ="30" width="35"/>
+                    </button> 
                     </div>
                 </div>
             </div>
