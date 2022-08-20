@@ -78,7 +78,9 @@ function renderizaNaTela() {
 
             const html = `
             <div class="card cards" style="width: 18rem;">
+                <div class="img-div">
                 <img src=${fotoLink} class=" img-tam" alt="...">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title txt-cent">${modelo}</h5>
                     <p class="card-text">fabricante: ${fabricante}</p>
@@ -102,7 +104,7 @@ function renderizaNaTela() {
                         </ul>
                         </div>
                         <button onclick="handleSetModal('${modelo}', 'user')" class="btn-like" data-bs-toggle="modal" data-bs-target="#user-like">
-                        <img src="./assets/like.png" height ="30" width="35"/>
+                        <img src="./assets/estrela.png" height ="35" width="40"/>
                     </button> 
                     </div>
                 </div>
