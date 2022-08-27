@@ -1,4 +1,7 @@
 const Dispositivo = require("../model/dispositivo");
+const dataCache = require("../database/redisdb");
+const { request, response } = require("express");
+const neo4j = require("../database/neodb");
 
 const listarDispositivos = async (request, response) => {
   try {
@@ -11,19 +14,48 @@ const listarDispositivos = async (request, response) => {
 
 const buscarDispositivo = async (request, response) => {
   try {
-    const encontrado = await Dispositivo.findOne(
-      { modelo: request.params.modelo },
-      { __v: false }
-    );
-    if (encontrado) {
-      response.status(200).send(encontrado);
+    const modelo = request.params.modelo;
+    const client = await dataCache.conectar();
+    const encontrado = await client.get(modelo);
+    if (encontrado == null) {
+        encontrado = await Dispositivo.findOne(
+        { modelo: modelo },
+        { __v: false }
+      );
+      if (encontrado) {
+        console.log("Dispositivo trazido do MongoDB, atualizando cache...");
+        const result = await client.set(Dispositivo.modelo, JSON.stringify(Dispositivo), {
+          EX: 3600,
+        });
+        await client.disconnect();
+        response.status(200).send(encontrado);
+      } else {
+        await client.disconnect();
+        response.status(400).send("Dispositivo não encontrado!");
+      }
     } else {
-      response.status(400).send("Dispositivo não encontrado!");
+      //Se objeto estiver no cache
+      console.log("Dispositivo trazido do cache");
+      encontrado = JSON.parse(encontrado);
+      await client.disconnect();
+      response.status(200).send(encontrado);
     }
   } catch (err) {
     response.status(500).send({ error: err.message });
   }
 };
+
+const ultimosDispositivos = async (request, response) => { 
+    const client = await dataCache.conectar();
+    const listaCache = await client.keys();
+    if(listaCache){
+        await client.disconnect();
+        listaCache = JSON.parse(listaCache);
+        response.status(200).send(listaCache);
+    }else{
+        response.status(400).send("Lista sem dispositivos.");
+    }
+}
 
 const adicionarDispositivo = async (request, response) => {
   const dispositivo = new Dispositivo(request.body);
@@ -31,6 +63,9 @@ const adicionarDispositivo = async (request, response) => {
   dispositivo
     .save()
     .then(() => {
+      const session = neo4j.session();
+      await session.run(`CREATE (:Dispositivo{modelo:"${request.body.modelo}"})`);
+      await session.close();
       response.status(200).send("Salvo com sucesso!");
     })
     .catch((err) => {
@@ -76,4 +111,5 @@ module.exports = {
   adicionarDispositivo,
   atualizarDispositivo,
   deletarDispositivo,
+  ultimosDispositivos
 };
