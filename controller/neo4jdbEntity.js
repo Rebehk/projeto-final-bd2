@@ -3,7 +3,7 @@ const { request, response } = require("express");
 
 const addPessoa = async (request, response) => {
     try {
-        const session = neo4j.session();
+        const session = neo4j.gdbdriver.session();
 
         await session.run(`CREATE (:Pessoa{email:"${request.body.email}", 
                 nome:"${request.body.nome}" })`);
@@ -16,7 +16,7 @@ const addPessoa = async (request, response) => {
 }
 
 const favoritarDispositivo = async (request, response) => {
-  const session = neo4j.session();
+  const session = neo4j.gdbdriver.session();
   const result =
     await session.run(`match(p1:Pessoa{email:"${request.body.email}"})
       optional match(d1:Dispositivo{modelo:"${request.body.modelo}"})
@@ -39,20 +39,22 @@ function formatResponse(resultObj) {
   return result;
 }
 
+//PARA SABER SE UM USUARIO ESTA NO NEO4J
 const getUsuario =  async function(request, response) {
-    const {id} = request.params.email;
-    const query = `match(p1:Pessoa{email:"${request.params.email}"}) return p1`
-    const resultObj = await neo4j.executeCypherQuery(query, id);
+    const session = neo4j.gdbdriver.session();
+    const query = `match(p1:Pessoa{email:"${request.params.nome}"}) return p1`
+    const resultObj = await session.run(query);
     const result = formatResponse(resultObj);
+    await session.close();
     response.status(200).send(result);
 };
 
 const buscarFavoritadosPorUmUsuario =  async (request, response) => {
-    const { id } = request.params.email;
-    const query = "MATCH (n:Pessoa {email: $id})-[:LIKE]-(d:Dispositivo) RETURN d";
-    const params = { id: parseInt(id) };
-    const resultObj = await neo4j.executeCypherQuery(query, params);
+    const session = neo4j.gdbdriver.session();
+    const query = `MATCH (n:Pessoa {email: "${request.params.email}"})-[:LIKE]-(d:Dispositivo) RETURN d`;
+    const resultObj = await session.run(query);
     const result = formatResponse(resultObj);
+    await session.close();
     response.status(200).send(result);
 };
 
