@@ -7,4 +7,19 @@ const gdbdriver = neo4j.driver(
   neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD)
 );
 
-module.exports = gdbdriver;
+
+async function executeCypherQuery(statement, params = {}) {
+  const session = gdbdriver.session();
+  try {
+    const result = session.run(statement, params);
+    session.close();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = {
+  gdbdriver,
+  executeCypherQuery
+}
