@@ -62,8 +62,8 @@ const adicionarDispositivo = async (request, response) => {
   console.log(request.body);
   dispositivo
     .save()
-    .then(() => {
-      const session = neo4j.session();
+    .then(async () => {
+      const session = neo4j.gdbdriver.session();
       await session.run(`CREATE (:Dispositivo{modelo:"${request.body.modelo}"})`);
       await session.close();
       response.status(200).send("Salvo com sucesso!");
@@ -74,12 +74,14 @@ const adicionarDispositivo = async (request, response) => {
 };
 
 const deletarDispositivo = async (request, response) => {
-  const result = await Dispositivo.deleteOne({ modelo: request.params.modelo });
-  if (result.deletedCount > 0) {
+  const result = await Dispositivo.deleteOne({ modelo: request.params.modelo }).
+  then(async () => {
+    const session = neo4j.gdbdriver.session();
+    await session.run(`MATCH (d:Dispositivo{modelo:"${request.params.modelo}"}) DELETE d`);
+    await session.close();
     response.status(200).send("Removido com sucesso!");
-  } else {
-    response.status(400).send("Operação não sucedida!");
-  }
+  });
+  
 };
 
 const atualizarDispositivo = async (request, response) => {

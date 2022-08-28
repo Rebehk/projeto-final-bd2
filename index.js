@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 app.use(routes);
-app.use(error);
 //app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(process.env.API_PORT, () => {

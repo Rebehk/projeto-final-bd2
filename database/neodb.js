@@ -15,7 +15,7 @@ async function executeCypherQuery(statement, params = {}) {
     session.close();
     return result;
   } catch (error) {
-    throw error;
+    throw new Error('FATAL ERROR: ao executar CypherQuery.');
   }
 }
 
