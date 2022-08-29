@@ -129,13 +129,19 @@
                             data-bs-toggle="modal" data-bs-target="#user-add">Cadastre-se</button> </h5>
                     <p class="txt-cent">Informe seu Email:</p>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="nome@email.com">
+                        <input type="email" class="form-control" id="email-exist" placeholder="nome@email.com">
                         <label for="floatingInput" class="form-label">Email</label>
+                    </div>
+                    <p class="txt-cent">Confirme o modelo:</p>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="modelo-like1" placeholder="modelo">
+                        <label for="floatingInput" class="form-label">Modelo</label>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                    <button type="button" onclick="" class="btn btn-success" data-bs-dismiss="modal">Entrar</button>
+                    <button type="button" onclick="handleModalUser()" class="btn btn-success"
+                        data-bs-dismiss="modal">Entrar</button>
                 </div>
             </div>
         </div>
@@ -149,7 +155,7 @@
                     <h5 style="margin: 15px;" class="modal-title txt-cent" id="ModalLabel">Informe Seus Dados </h5>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="seu nome">
+                        <input type="text" class="form-control" id="nome" placeholder="seu nome">
                         <label for="floatingInput">Nome</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -160,7 +166,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                    <button type="button" onclick="" class="btn btn-success" data-bs-dismiss="modal">Entrar</button>
+                    <button type="button" onclick="handleModalAddUser()" class="btn btn-success"
+                        data-bs-dismiss="modal">Entrar</button>
                 </div>
             </div>
         </div>
@@ -171,19 +178,20 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h5 style="margin: 15px;" class="modal-title txt-cent" id="ModalLabel">Informe o Nome do usuário
+                    <h5 style="margin: 15px;" class="modal-title txt-cent" id="ModalLabel">Informe o Email do usuário
                         para ver os Favoritos </h5>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="seu nome">
-                        <label for="floatingInput">Nome</label>
+                        <input type="text" class="form-control" id="name" placeholder="Email">
+                        <label for="floatingInput">Email</label>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
                     <a class="navbar-brand" href="favorite.html">
-                        <button type="button" onclick="" class="btn btn-success" data-bs-dismiss="modal">Entrar</button>
+                        <button type="button" onclick="listarDispositivosFavoritos()" class="btn btn-success"
+                            data-bs-dismiss="modal">Entrar</button>
                     </a>
                 </div>
             </div>
