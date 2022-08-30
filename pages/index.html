@@ -27,9 +27,12 @@
                         data-bs-target="#modalForm">
                         Adicionar
                     </button>
-                    <button class="btn-add" onclick="" data-bs-toggle="modal" data-bs-target="#favorite">
-                        Buscar Favoritos
-                    </button>
+                    <a href="favorite.html">
+                        <button class="btn-add" onclick="" data-bs-toggle="modal" data-bs-target="#favorite">
+                            Página de Favoritos
+                        </button>
+
+                    </a>
 
                 </ul>
                 <div class="d-flex" role="modal">
@@ -173,30 +176,7 @@
         </div>
     </div>
 
-    <!-- Modal Favorite-->
-    <div class="modal fade" id="favorite" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h5 style="margin: 15px;" class="modal-title txt-cent" id="ModalLabel">Informe o Email do usuário
-                        para ver os Favoritos </h5>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="Email">
-                        <label for="floatingInput">Email</label>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                    <a class="navbar-brand" href="favorite.html">
-                        <button type="button" onclick="listarDispositivosFavoritos()" class="btn btn-success"
-                            data-bs-dismiss="modal">Entrar</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal search -->
     <div class="modal fade" id="search" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
