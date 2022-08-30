@@ -16,7 +16,7 @@ const buscarDispositivo = async (request, response) => {
   try {
     const modelo = request.params.modelo;
     const client = await dataCache.conectar();
-    const encontrado = await client.get(modelo);
+    let encontrado = await client.get(modelo);
     if (encontrado == null) {
         encontrado = await Dispositivo.findOne(
         { modelo: modelo },
@@ -24,7 +24,7 @@ const buscarDispositivo = async (request, response) => {
       );
       if (encontrado) {
         console.log("Dispositivo trazido do MongoDB, atualizando cache...");
-        const result = await client.set(Dispositivo.modelo, JSON.stringify(Dispositivo), {
+        const result = await client.set(encontrado.modelo, JSON.stringify(encontrado), {
           EX: 3600,
         });
         await client.disconnect();
@@ -47,10 +47,9 @@ const buscarDispositivo = async (request, response) => {
 
 const ultimosDispositivos = async (request, response) => { 
     const client = await dataCache.conectar();
-    const listaCache = await client.keys();
+    let listaCache = await client.keys("*");
     if(listaCache){
         await client.disconnect();
-        listaCache = JSON.parse(listaCache);
         response.status(200).send(listaCache);
     }else{
         response.status(400).send("Lista sem dispositivos.");
