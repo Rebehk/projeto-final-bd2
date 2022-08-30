@@ -12,6 +12,14 @@
   max-width: 90%;
   justify-content: center;
 }
+.container-pg2 {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  max-width: 90%;
+  justify-content: center;
+  margin-left: 5%;
+}
 .cards {
   margin: 5px;
 }

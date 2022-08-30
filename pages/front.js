@@ -1,12 +1,14 @@
 const baseURL = 'http://localhost:3000'
 let dispositivos = []
 
+
 //fetch methods
 function carregaDispositivos() {
     fetch(`${baseURL}/inicio`)
         .then(response => response.json())
         .then(json => {
             dispositivos = json
+            // console.log(dispositivos)
             renderizaNaTela()
         })
         .catch(err => false)
@@ -239,3 +241,80 @@ function handleSetModal(modelo, idElem) {
         limparModalForm()
     }
 }
+
+
+
+// neo4j 
+
+
+function handleAddUser(pessoa) {
+    fetch(`${baseURL}/adicionar_pessoa`, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pessoa)
+    }).then(response => {
+        console.log()
+    })
+        .catch(err => false)
+}
+
+
+function favoritarDispositivo(like) {
+    fetch(`${baseURL}/favoritar_dispositivo`, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(like)
+    }).then(response => {
+        console.log()
+    })
+        .catch(err => false)
+}
+
+
+function buscaPessoaModalForm() {
+    return {
+        nome: document.querySelector('#nome').value,
+        email: document.querySelector('#email').value,
+
+    }
+}
+function limparModalAddPessoa() {
+    document.querySelector('#nome').value = ''
+    // document.querySelector('#name').value = ''
+    document.querySelector('#email').value = ''
+
+
+}
+
+function limparModallike() {
+    document.querySelector('#email-exist').value = ''
+    document.querySelector('#modelo-like1').value = ''
+}
+
+function handleModalAddUser() {
+    let pessoa = buscaPessoaModalForm()
+    handleAddUser(pessoa)
+    limparModalAddPessoa()
+}
+
+
+function handleModalUser() {
+    let like = {}
+    like.email = document.querySelector('#email-exist').value
+    like.modelo = document.querySelector('#modelo-like1').value
+    console.log(like)
+    favoritarDispositivo(like)
+    limparModallike()
+}
+
+
+
+
+
+
