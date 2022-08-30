@@ -6,6 +6,8 @@ Aplicação desenvolvida para a disciplina de banco de dados 2 do curso de ADS n
 
 :warning: [Node](https://nodejs.org/en/download/)
 :warning: [MongoDB](https://www.mongodb.com/pt-br)
+:warning: [Neo4j](https://neo4j.com/)
+:warning: [Redis](https://redis.io/)
 
 ## Iniciando/Configurando banco de dados
 
@@ -16,6 +18,10 @@ MONGO_HOST =
 MONGO_PORT=
 MONGO_DATABASE=
 API_PORT=
+
+NEO4J_HOST = 
+NEO4J_USER = 
+NEO4J_PASSWORD = 
 ```
 
 ## Como rodar a aplicação :arrow_forward:
